@@ -1,0 +1,167 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/kudobuzz/api-standards
+docs: https://github.com/kudobuzz/api-standards#guidelines
+notes: >-
+  Kudobuzz publishes its cross-cutting API design standard as a public
+  repository (kudobuzz/api-standards). Everything below is captured from that
+  document and from the published API docs at docs.kudobuzz.com. Kudobuzz does
+  not ship an OpenAPI definition, so nothing here is derived from a spec.
+auth:
+  style: api-key
+  detail: Account token for server-side calls, client id for browser-side calls
+  see: authentication/kudobuzz-authentication.yml
+
+idempotency:
+  supported: true
+  model: http-method-semantics
+  detail: >-
+    Kudobuzz's published API standard requires that all GET, PUT and DELETE
+    operations are idempotent, with no adverse side effects from repeated
+    operations. This is method-level idempotency guaranteed by design
+    convention, not a client-supplied Idempotency-Key header — Kudobuzz does
+    not document an idempotency key, so retrying a POST is not safe.
+  idempotent_methods:
+    - GET
+    - PUT
+    - DELETE
+  idempotency_key_header: null
+  retention: null
+  source: https://github.com/kudobuzz/api-standards#idempotent
+  caveat: >-
+    Because there is no idempotency key, clients must not blindly retry POST
+    calls such as createReview or createOrUpdate on a network timeout; check
+    for the record first.
+
+pagination:
+  style: cursor
+  params:
+    - name: limit
+      description: Maximum number of records to return
+      default: server-defined default when omitted
+    - name: cursor
+      description: >-
+        Id of the next set of items to fetch; semantically "everything greater
+        than this id"
+    - name: sort
+      description: Sort criteria, comma-separated, "-" prefix for descending
+      example: "-created_at,year"
+  response_fields:
+    - path: metadata.count
+      description: Total available record count
+    - path: data
+      description: Array of returned records
+  example: https://api.kudobuzz.com/v1/magazines?limit=25&cursor=383884834
+  source: https://github.com/kudobuzz/api-standards#record-limits
+  confirmed_in_docs: >-
+    The documented apm.orders.fetchOrders() method takes limit, cursor and sort
+    parameters, confirming the cursor convention is implemented in the live API.
+
+response_envelope:
+  style: data-envelope
+  detail: >-
+    Collection responses wrap results in a top-level `data` array alongside a
+    `metadata` object carrying the count. Single-resource responses wrap the
+    object in a top-level `data` key.
+  collection_example: |
+    {
+      "metadata": { "count": 227 },
+      "data": []
+    }
+  source: https://github.com/kudobuzz/api-standards#record-limits
+
+error_envelope:
+  style: custom
+  rfc9457: false
+  shape: |
+    {
+      "error": {
+        "message": "Verbose, plain language description of the problem",
+        "code": "444444",
+        "details": [{ "param": "...", "message": "...", "value": "..." }]
+      }
+    }
+  fields:
+    - name: error.message
+      required: true
+      description: Plain-language description of the problem plus remediation guidance
+    - name: error.code
+      required: false
+      description: >-
+        Internal error code. Explicitly NOT the same as the HTTP status code.
+    - name: error.details
+      required: false
+      description: Validation error details, array of param/message/value objects
+  see: errors/kudobuzz-error-codes.yml
+  source: https://github.com/kudobuzz/api-standards#error-handling
+
+rate_limit_signaling:
+  supported: true
+  headers:
+    - name: X-Rate-Limit-Limit
+      description: Number of requests allowed in the given interval
+    - name: X-Rate-Limit-Remaining
+      description: Number of requests remaining in the current interval
+    - name: X-Rate-Limit-Reset
+      description: Time at which the rate limit window resets
+  status_code: 429
+  standard_headers: false
+  note: >-
+    Kudobuzz uses the legacy X-Rate-Limit-* family, not the RFC 9331
+    RateLimit-Limit/Remaining/Reset draft headers.
+  see: rate-limits/kudobuzz-rate-limits.yml
+  source: https://github.com/kudobuzz/api-standards#rate-limiting
+
+versioning:
+  style: uri-path
+  format: integer prefixed with v
+  good_examples: [v1, v2, v3]
+  bad_examples: ["v-1.1", "v1.2", "1.3"]
+  current: v1
+  base: https://api.kudobuzz.com/v1
+  support_window: At least one version back is maintained
+  see: lifecycle/kudobuzz-lifecycle.yml
+  source: https://github.com/kudobuzz/api-standards#versions
+
+field_selection:
+  supported: true
+  style: sparse-fieldsets
+  param: fields
+  detail: Comma-separated list of fields to return, reducing response payload
+  example: https://api.kudobuzz.com/v1/magazines/1234?fields=title,subtitle,date
+  source: https://github.com/kudobuzz/api-standards#restful-urls
+
+resource_naming:
+  rules:
+    - URLs identify resources and use nouns, never verbs
+    - Plural nouns only, for consistency
+    - Nesting no deeper than resource/identifier/resource
+    - Version number at the base of the URL
+    - HTTP verbs carry the operation
+    - Non-resource actions name the action in the URL (e.g. /convert?from=EURO&to=YEN)
+  source: https://github.com/kudobuzz/api-standards#restful-urls
+
+response_keys:
+  rule: No values in keys
+  good: '"tags": [{"id": "125", "name": "Environment"}]'
+  bad: '"tags": [{"125": "Environment"}]'
+  source: https://github.com/kudobuzz/api-standards#responses
+
+bulk_operations:
+  supported: true
+  pattern: POST /{resource}/bulk with an array request body
+  example: https://api.kudobuzz.com/v1/magazines/bulk
+  source: https://github.com/kudobuzz/api-standards#request--response-examples
+
+request_id_tracing:
+  documented: false
+  note: Kudobuzz does not document a request-id or correlation-id response header.
+
+metadata_fields:
+  documented: true
+  detail: >-
+    Resource payloads carry created_at / updated_at, and external-system
+    linkage fields (external_customer_id, external_reviewer_id,
+    external_unique_id, order_id, business_id) plus a free-form tags[] array
+    on customers.
+  source: https://docs.kudobuzz.com/apm.md

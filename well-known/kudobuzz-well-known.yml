@@ -1,0 +1,35 @@
+generated: '2026-07-19'
+method: searched
+source: live HTTP probes of the Kudobuzz base hosts
+notes: >-
+  Kudobuzz publishes no /.well-known/ discovery surface on any of its hosts. No
+  security.txt (RFC 9116), no OIDC discovery, no RFC 8414 authorization-server
+  metadata, no RFC 9727 api-catalog and no ai-plugin.json. Recorded as verified
+  absence, not as a gap in the probe. The Kudobuzz API authenticates with a
+  static account token plus a client id (see authentication/), so there is no
+  OAuth/OIDC metadata document to expect.
+hosts:
+  - host: https://kudobuzz.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://api.kudobuzz.com
+    root_status: 200
+    root_body: '{"msg":"Welcome to our API."}'
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404

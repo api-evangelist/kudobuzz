@@ -1,0 +1,81 @@
+generated: '2026-07-19'
+method: searched
+source: https://support.kudobuzz.com/en/, https://kudobuzz.com/pricing
+notes: >-
+  Kudobuzz's primary integration surface for most merchants is not the HTTP API
+  but a family of embeddable, merchant-configurable widgets installed into a
+  storefront. The help center dedicates a WIDGETS category to them and the
+  pricing page gates them by plan. Kudobuzz does not publish a per-widget
+  developer reference (no component API docs, no documented custom elements or
+  props), so only the widget families that are named on public pages are
+  captured here. Nothing below is inferred.
+component_families:
+  - name: Site widget
+    description: >-
+      Store-wide review display surface, embedded on a merchant's site to show
+      collected reviews.
+    placement: site-wide
+    source: https://support.kudobuzz.com/en/
+  - name: Product widget
+    description: >-
+      Per-product review display attached to a product page, keyed to the
+      merchant's product id.
+    placement: product page
+    related_id_field: external_unique_id
+    source: https://support.kudobuzz.com/en/
+  - name: Full page widget
+    description: A dedicated full-page reviews surface.
+    placement: standalone page
+    source: https://support.kudobuzz.com/en/
+  - name: Checkout widget
+    description: Review/social-proof surface placed in the checkout flow.
+    placement: checkout
+    source: https://support.kudobuzz.com/en/
+  - name: UGC and shoppable video
+    description: >-
+      Embeds synced social user-generated content and shoppable video, with
+      product tagging so the content converts.
+    placement: storefront
+    capabilities:
+      - Automatic video syncing (every 24h on Starter, every 3h on Growth)
+      - Product tagging
+      - Advanced moderation
+    source: https://kudobuzz.com/pricing
+  - name: CRO surfaces
+    description: >-
+      Conversion-rate-optimization components that analyze user behaviour and
+      surface conversion tooling across the store.
+    placement: storefront
+    source: https://kudobuzz.com/solutions/cro
+customization:
+  branding_removal: >-
+    Removing Kudobuzz branding from widgets is a paid feature (Starter plan and
+    above for UGC; Domain Branding on the Dinner plan for reviews).
+  styling: >-
+    Widgets are described as customizable "to suit your unique style"; no
+    public theming API or CSS contract is documented.
+  source: https://kudobuzz.com/pricing
+install_surfaces:
+  note: >-
+    Widgets are installed through platform apps rather than by hand-wiring a
+    loader script, and Kudobuzz publishes per-platform install guides.
+  platforms:
+    - Shopify
+    - Wix
+    - BigCommerce
+    - Shoplazza
+    - Webflow
+  source: https://support.kudobuzz.com/en/
+loader_libraries:
+  published: false
+  note: >-
+    No public embed/loader library is documented. The npm package
+    @kudobuzz/sidebar exists in the @kudobuzz scope and bundles a "sidebar"
+    UI, but it carries no documentation tying it to the merchant widget
+    surface, so it is not claimed here as a supported embed library.
+developer_reference:
+  published: false
+  gap: >-
+    There is no developer-facing component reference — no documented custom
+    elements, props, events, or programmatic mount API. Widget configuration
+    is dashboard-driven and the surface is closed to developers.

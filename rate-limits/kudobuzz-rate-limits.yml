@@ -1,0 +1,52 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/kudobuzz/api-standards#rate-limiting
+notes: >-
+  Kudobuzz documents the rate-limit signalling contract (header family plus the
+  429 status) in its public API standard, but does not publish numeric quotas
+  per plan or per endpoint. Limits are communicated to integrators when
+  credentials are issued. No numeric limit_count is recorded because none is
+  published — this is a verified absence, not an omission.
+signaling:
+  supported: true
+  status_code: 429
+  status_meaning: >-
+    The request was not accepted because the application has exceeded the rate
+    limit.
+  headers:
+    - name: X-Rate-Limit-Limit
+      description: The number of requests allowed in a given interval
+    - name: X-Rate-Limit-Remaining
+      description: The number of requests remaining in the current interval
+    - name: X-Rate-Limit-Reset
+      description: The next time the rate-limit window resets
+  standard: legacy-x-rate-limit
+  rfc9331_draft_headers: false
+limits:
+  published: false
+  note: >-
+    Numeric request quotas are not published. Kudobuzz states that rate limits
+    and best practices for going live are communicated by its team during the
+    API access onboarding conversation.
+  source: https://kudobuzz.com/developer-api
+plan_related_quotas:
+  note: >-
+    Kudobuzz publishes product-level volume caps on its pricing page that
+    bound API-driven usage even though they are not HTTP rate limits.
+  source: https://kudobuzz.com/pricing
+  examples:
+    - plan: Dinner
+      cap: 3000 monthly review requests
+    - plan: Dinner
+      cap: 1000 published reviews
+    - plan: Starter (UGC)
+      cap: Up to 50 synced videos, automatic syncing every 24 hours
+    - plan: Growth (UGC)
+      cap: Up to 150 synced videos, automatic syncing every 3 hours
+client_guidance:
+  - Read X-Rate-Limit-Remaining on every response and throttle before exhaustion.
+  - On 429, back off until X-Rate-Limit-Reset rather than retrying immediately.
+  - >-
+    Retry only idempotent methods (GET, PUT, DELETE). Kudobuzz publishes no
+    idempotency key, so a timed-out POST must be reconciled by reading back the
+    record. See conventions/kudobuzz-conventions.yml.

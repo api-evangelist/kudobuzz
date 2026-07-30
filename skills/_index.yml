@@ -1,0 +1,38 @@
+generated: '2026-07-19'
+method: generated
+source: https://docs.kudobuzz.com/
+notes: >-
+  Kudobuzz publishes no OpenAPI definition and no provider-authored Agent
+  Skills or AGENTS.md. These skills are generated from the operations documented
+  on the Kudobuzz client wrapper reference — every operation referenced is real
+  and documented; none are invented. They carry Kudobuzz's own published
+  conventions (cursor pagination, custom error envelope, X-Rate-Limit-* headers,
+  method-level-only idempotency) so an agent operates the API safely.
+skills:
+  - name: kudobuzz-collect-review
+    file: kudobuzz-collect-review.md
+    description: >-
+      Create a customer review in Kudobuzz, attached to a product and reviewer,
+      with correct 422 validation handling and duplicate-safe retry behaviour.
+    operations:
+      - client.core.reviews.createReview
+    write: true
+    confirm_before_write: true
+  - name: kudobuzz-sync-orders-and-customers
+    file: kudobuzz-sync-orders-and-customers.md
+    description: >-
+      Sync commerce customers and orders into Kudobuzz APM so post-purchase
+      review requests can be segmented and scheduled, including cursor-paged
+      reconciliation.
+    operations:
+      - client.apm.customers.createOrUpdate
+      - client.apm.orders.createOrUpdate
+      - client.apm.orders.fetchOrders
+      - client.apm.orders.getOrderById
+    write: true
+    confirm_before_write: true
+provider_published_skills:
+  found: false
+  searched:
+    - https://docs.kudobuzz.com/
+    - https://github.com/orgs/kudobuzz/repositories

@@ -1,0 +1,106 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/kudobuzz/api-standards#error-handling
+docs: https://github.com/kudobuzz/api-standards#http-status-codes
+format: custom
+rfc9457: false
+notes: >-
+  Kudobuzz is not a payments provider, so this is the non-payments error
+  registry (no decline codes apply). Kudobuzz publishes no OpenAPI definition,
+  so the catalog is taken from the status-code table and error-envelope shape
+  in the public kudobuzz/api-standards repository rather than derived from
+  4xx/5xx responses. Kudobuzz's `error.code` is an internal, per-service
+  identifier that is explicitly documented as NOT the HTTP status code; the
+  registry of those internal codes is not published, so only the envelope and
+  the HTTP-level catalog are captured here.
+envelope:
+  media_type: application/json
+  shape: |
+    {
+      "error": {
+        "message": "Verbose, plain language description of the problem. Provide
+                    developers suggestions about how to solve their problems here",
+        "code": "444444",
+        "details": [{ "param": "...", "message": "...", "value": "..." }]
+      }
+    }
+  fields:
+    - name: error.message
+      required: true
+      description: >-
+        Verbose, plain-language description of the problem, expected to include
+        a suggestion for how the developer can resolve it.
+    - name: error.code
+      required: false
+      description: >-
+        Optional internal error code corresponding to a specific,
+        internally-determined identifier. Distinct from the HTTP status code.
+    - name: error.details
+      required: false
+      description: >-
+        Validation error details as an array of objects carrying the offending
+        param, a message, and the rejected value.
+status_codes:
+  - status: 200
+    title: OK
+    meaning: The request was successfully processed.
+    client_action: none
+  - status: 201
+    title: Created
+    meaning: The request has been fulfilled and the new resource has been created.
+    client_action: none
+  - status: 400
+    title: Bad Request
+    meaning: >-
+      The request was not understood by the server due to bad syntax; the
+      request contains invalid or missing request details.
+    client_action: >-
+      Fix the request shape. Do not retry unchanged — this is deterministic.
+    retryable: false
+  - status: 401
+    title: Unauthorized
+    meaning: The request is missing the necessary authentication details.
+    client_action: >-
+      Supply the Kudobuzz account token (server-side) or client id
+      (browser-side). See authentication/kudobuzz-authentication.yml.
+    retryable: false
+  - status: 403
+    title: Forbidden
+    meaning: >-
+      The request credentials do not have permission to perform that action on
+      the resource.
+    client_action: >-
+      Confirm the account has Developer API access (Buffet plan or an approved
+      app-developer grant).
+    retryable: false
+  - status: 404
+    title: Not Found
+    meaning: The resource was not found.
+    client_action: Verify the resource id and the API version segment in the path.
+    retryable: false
+  - status: 422
+    title: Unprocessable Entity
+    meaning: >-
+      The request body is well formed but contains semantic errors. The error
+      response body will contain more details.
+    client_action: >-
+      Read error.details[] for the offending param/value pairs and correct the
+      payload.
+    retryable: false
+  - status: 429
+    title: Too Many Requests
+    meaning: >-
+      The request was not accepted because the application has exceeded the
+      rate limit.
+    client_action: >-
+      Back off until X-Rate-Limit-Reset, then retry. See
+      rate-limits/kudobuzz-rate-limits.yml.
+    retryable: true
+retry_guidance:
+  detail: >-
+    Only 429 is safely retryable. Because Kudobuzz documents no idempotency
+    key, a timed-out POST (createReview, customers.createOrUpdate,
+    orders.createOrUpdate) must not be blindly retried — read back the record
+    first. GET, PUT and DELETE are idempotent by Kudobuzz's own standard and
+    are safe to retry.
+  see: conventions/kudobuzz-conventions.yml

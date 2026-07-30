@@ -1,0 +1,130 @@
+generated: '2026-07-19'
+method: derived
+source: https://github.com/kudobuzz/api-standards, https://docs.kudobuzz.com/
+notes: >-
+  Assessed against Kudobuzz's own published API design standard and its public
+  API documentation. Kudobuzz ships no OpenAPI definition, so conformance is
+  judged on documented behaviour rather than on a machine-readable contract.
+  `conforms: false` entries are honest negatives, not gaps in the assessment.
+standards:
+  - id: rest
+    name: RESTful resource design
+    conforms: true
+    evidence: >-
+      Kudobuzz publishes a full RESTful URL standard: nouns not verbs, plural
+      collections, HTTP verbs carry the operation, nesting no deeper than
+      resource/identifier/resource, versioned base path.
+    source: https://github.com/kudobuzz/api-standards#restful-urls
+  - id: http-status-semantics
+    name: Conventional HTTP status code use
+    conforms: true
+    evidence: >-
+      Publishes a deliberately small status-code subset (200, 201, 400, 401,
+      403, 404, 422, 429) with a documented meaning for each.
+    source: https://github.com/kudobuzz/api-standards#http-status-codes
+  - id: idempotency
+    name: Idempotent method semantics
+    conforms: true
+    partial: true
+    evidence: >-
+      The standard requires GET, PUT and DELETE to be idempotent with no
+      adverse side effects. However Kudobuzz publishes no client-supplied
+      Idempotency-Key header, so unsafe POST retries are not protected.
+    source: https://github.com/kudobuzz/api-standards#idempotent
+  - id: pagination
+    name: Cursor-based pagination
+    conforms: true
+    evidence: >-
+      limit + cursor + sort parameters documented in the standard and confirmed
+      implemented in the live client (apm.orders.fetchOrders), with
+      metadata.count returned alongside the data array.
+    source: https://github.com/kudobuzz/api-standards#record-limits
+  - id: rate-limit-signaling
+    name: Rate-limit response headers
+    conforms: true
+    partial: true
+    evidence: >-
+      X-Rate-Limit-Limit / -Remaining / -Reset documented alongside 429. Uses
+      the legacy X- family rather than the RFC 9331 draft RateLimit-* headers.
+    source: https://github.com/kudobuzz/api-standards#rate-limiting
+  - id: rfc9457
+    name: RFC 9457 Problem Details for HTTP APIs
+    conforms: false
+    evidence: >-
+      Kudobuzz defines a custom error envelope ({error: {message, code,
+      details}}) served as application/json, not application/problem+json. No
+      type/title/status/detail/instance members.
+    source: https://github.com/kudobuzz/api-standards#error-handling
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: false
+    evidence: >-
+      Kudobuzz's internal standard recommends OAuth 2.0 bearer tokens for its
+      services, but the public Developer API as documented authenticates with a
+      static account token plus a client id. No authorization endpoint, no
+      token endpoint, no scopes, no /.well-known/oauth-authorization-server.
+    source: https://docs.kudobuzz.com/auth.md
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence: No /.well-known/openid-configuration on any Kudobuzz host (404).
+  - id: rfc9116
+    name: RFC 9116 security.txt
+    conforms: false
+    evidence: /.well-known/security.txt returns 404 on kudobuzz.com and api.kudobuzz.com.
+  - id: rfc8594
+    name: RFC 8594 Sunset header
+    conforms: false
+    evidence: >-
+      A version-support window is stated in prose ("maintain APIs at least one
+      version back") but no Sunset or Deprecation response headers are documented.
+  - id: json-api
+    name: JSON:API
+    conforms: false
+    evidence: >-
+      Uses a data + metadata envelope that superficially resembles JSON:API but
+      does not implement the specification (no type/attributes/relationships
+      structure, no application/vnd.api+json media type).
+  - id: openapi
+    name: OpenAPI description
+    conforms: false
+    evidence: >-
+      No OpenAPI or Swagger definition published. Documentation is a docsify
+      site describing the JavaScript client wrapper rather than the HTTP
+      contract.
+  - id: asyncapi
+    name: AsyncAPI / event surface
+    conforms: false
+    not_applicable: true
+    evidence: >-
+      No webhooks, streaming or event surface is documented anywhere in the
+      Kudobuzz API docs. Not penalized — there is no event surface to describe.
+  - id: gdpr
+    name: GDPR (EU) 2016/679
+    conforms: true
+    self_attested: true
+    evidence: >-
+      Dedicated GDPR compliance page documenting Kudobuzz's Data Processor
+      role, legal bases, data-subject rights assistance and sub-processor
+      review. Self-attested; no third-party audit published.
+    source: https://kudobuzz.com/gdpr
+  - id: soc2
+    name: SOC 2
+    conforms: false
+    evidence: >-
+      Kudobuzz holds no published SOC 2 report. SOC 2 is referenced on the
+      security page only as a property of the cloud providers Kudobuzz hosts
+      on. See security/kudobuzz-trust-center.yml.
+  - id: iso27001
+    name: ISO/IEC 27001
+    conforms: false
+    evidence: >-
+      No published certificate. Referenced on the security page only as a
+      property of Kudobuzz's hosting providers.
+  - id: tls
+    name: TLS in transport
+    conforms: true
+    evidence: >-
+      TLSv1.3 negotiated on kudobuzz.com; the API standard requires HTTPS/TLS
+      for all API access. Note HSTS is not enabled — see
+      security/kudobuzz-domain-security.yml.

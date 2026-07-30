@@ -1,0 +1,79 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: https://docs.kudobuzz.com/core.md, https://docs.kudobuzz.com/apm.md
+notes: >-
+  Kudobuzz publishes NO official hosted or remote MCP server. Searched the
+  Kudobuzz docs, the kudobuzz GitHub organization (21 public repositories, none
+  MCP-related) and the npm registry (5 first-party @kudobuzz packages, none an
+  MCP server). The tool list below is a CANDIDATE derived from the operations
+  actually documented on the Kudobuzz client wrapper — it is a design proposal
+  for what a Kudobuzz MCP server would expose, not something Kudobuzz ships.
+  Every source_operation below is a real, documented method; none are invented.
+server:
+  published: false
+  name: kudobuzz
+  transport: http
+  url: null
+searched:
+  - target: https://docs.kudobuzz.com/
+    result: no MCP server documented
+  - target: https://github.com/orgs/kudobuzz/repositories
+    result: no MCP repository among 21 public repos
+  - target: npm registry (@kudobuzz scope)
+    result: no MCP server package
+tools:
+  - name: create_review
+    description: >-
+      Create a customer review in Kudobuzz, optionally attached to a product
+      and carrying reviewer identity, rating, message and media.
+    source_operation: client.core.reviews.createReview
+    source_doc: https://docs.kudobuzz.com/core.md
+    write: true
+    consequence: >-
+      Publishes merchant-visible content. Not idempotent — Kudobuzz documents
+      no idempotency key, so a retried call can duplicate a review.
+    required_params: [platform, source, created_at_platform, reviewer, rating, message]
+  - name: upsert_customer
+    description: >-
+      Push a customer into the Kudobuzz account so they can be segmented for
+      After Purchase Mail campaigns. Creates when id is absent, updates when
+      id is supplied.
+    source_operation: client.apm.customers.createOrUpdate
+    source_doc: https://docs.kudobuzz.com/apm.md
+    write: true
+    consequence: >-
+      Writes PII (email, phone, name) into a marketing-campaign audience.
+      Requires the merchant to hold a lawful basis under GDPR — see
+      security/kudobuzz-trust-center.yml.
+    required_params: [apmId, business_id, last_name]
+  - name: upsert_order
+    description: Create or update a commerce order in Kudobuzz, including line items.
+    source_operation: client.apm.orders.createOrUpdate
+    source_doc: https://docs.kudobuzz.com/apm.md
+    write: true
+    consequence: >-
+      Can trigger post-purchase review-request scheduling. Not idempotent.
+    required_params: [business_id, order_id, order_number, line_items]
+  - name: list_orders
+    description: >-
+      List orders for a business with cursor pagination and sort control.
+    source_operation: client.apm.orders.fetchOrders
+    source_doc: https://docs.kudobuzz.com/apm.md
+    write: false
+    required_params: [business_id]
+    optional_params: [limit, cursor, sort]
+  - name: get_order
+    description: Retrieve a single order by its Kudobuzz order id.
+    source_operation: client.apm.orders.getOrderById
+    source_doc: https://docs.kudobuzz.com/apm.md
+    write: false
+    required_params: [orderId]
+auth:
+  model: >-
+    A Kudobuzz MCP server would carry the server-side account token
+    (accessToken) plus the clientId. The token is a long-lived static secret
+    with no scope surface, so an MCP deployment cannot narrow an agent's
+    authority below full account access — every write tool above should sit
+    behind human confirmation.
+  see: authentication/kudobuzz-authentication.yml

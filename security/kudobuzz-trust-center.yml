@@ -1,0 +1,71 @@
+generated: '2026-07-19'
+method: searched
+source: https://kudobuzz.com/security
+url: https://kudobuzz.com/security
+notes: >-
+  IMPORTANT ACCURACY NOTE. An automated keyword probe of the Kudobuzz security
+  page matched "SOC 2", "ISO 27001" and "GDPR" and initially recorded all three
+  as Kudobuzz certifications. Reading the page in context shows that is wrong:
+  SOC 2 and ISO 27001 are attributed to the *cloud providers Kudobuzz hosts on*
+  ("Kudobuzz is hosted on leading cloud providers with strong compliance
+  standards (such as SOC 2, ISO 27001, and GDPR-ready)"), not to Kudobuzz
+  itself. Kudobuzz publishes no audit report, no certificate, and no
+  third-party trust-center portal. Those two entries have therefore been
+  reclassified as inherited-from-infrastructure and are explicitly NOT claimed
+  as Kudobuzz certifications. Only the GDPR program, which Kudobuzz documents
+  as its own on a dedicated page, is recorded as a first-party compliance
+  program.
+trust_center:
+  dedicated_portal: false
+  probed:
+    - url: https://trust.kudobuzz.com
+      result: not found
+  security_policy_page: https://kudobuzz.com/security
+  security_policy_updated: September 2025
+  gdpr_page: https://kudobuzz.com/gdpr
+  gdpr_page_updated: July 2026
+certifications: []
+first_party_compliance_programs:
+  - name: GDPR
+    regulation: General Data Protection Regulation (EU) 2016/679
+    url: https://kudobuzz.com/gdpr
+    self_attested: true
+    third_party_audited: false
+    role: >-
+      Kudobuzz acts as Data Processor; the merchant is the Data Controller and
+      determines the purposes and means of processing.
+    commitments:
+      - Processes data solely to deliver its services
+      - Does not use or sell personal data for advertising purposes
+      - >-
+        Assists merchants in fulfilling data-subject rights (access,
+        rectification, erasure, restriction, portability)
+      - Sub-processors reviewed for security compliance before engagement
+inherited_from_infrastructure:
+  note: >-
+    Claimed for Kudobuzz's hosting providers on the Kudobuzz security page, NOT
+    for Kudobuzz. Recorded for completeness; must not be presented as a
+    Kudobuzz certification.
+  standards: [SOC 2, ISO 27001]
+  evidence_quote: >-
+    "Kudobuzz is hosted on leading cloud providers with strong compliance
+    standards (such as SOC 2, ISO 27001, and GDPR-ready)."
+security_practices_published:
+  encryption_in_transit: TLS/SSL for all data between Kudobuzz and users
+  encryption_at_rest: Industry-standard algorithms for sensitive data, where applicable
+  access_control: Role-based access control (RBAC) with enforced MFA for internal admin access
+  access_auditing: Regular audits of access logs
+  application_security: Code review and vulnerability testing before deployment; regular penetration tests and vulnerability scans
+  infrastructure: Firewalls, intrusion detection and monitoring
+  continuity: Backup and disaster-recovery plans
+  data_retention: Retained only as long as needed; securely deleted per industry standards
+  incident_response: >-
+    Investigate and contain, notify affected customers without undue delay,
+    conduct post-incident review
+  sub_processor_list: Available on request (not published)
+gaps:
+  - No published SOC 2 report or ISO 27001 certificate of its own
+  - No public sub-processor list (available on request only)
+  - No /.well-known/security.txt
+  - No published vulnerability disclosure policy or bug bounty program
+  - No public status page

@@ -1,0 +1,77 @@
+generated: '2026-07-19'
+method: searched
+source: https://registry.npmjs.org/-/v1/search?text=kudobuzz
+notes: >-
+  All packages below are published to npm under the @kudobuzz scope by the npm
+  user "kud.bz" (the Kudobuzz publishing account), which is what establishes
+  first-party status. @kudobuzz/kbclient is the documented client wrapper for
+  the Kudobuzz API and is the package the official docs at docs.kudobuzz.com
+  instruct developers to install. No PyPI, RubyGems, Packagist, Maven Central,
+  NuGet, pkg.go.dev or crates.io client library was found for Kudobuzz.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@kudobuzz/kbclient"
+    version: 0.0.5
+    url: https://www.npmjs.com/package/@kudobuzz/kbclient
+    install: npm i @kudobuzz/kbclient --save-exact
+    description: Wrapper for the Kudobuzz API
+    repository: https://github.com/kudobuzz/kbjs-clients
+    license: MIT
+    published: '2022-07-21'
+    official: true
+    primary: true
+  - language: javascript
+    registry: npm
+    name: "@kudobuzz/kbjs-core"
+    version: 0.0.5
+    url: https://www.npmjs.com/package/@kudobuzz/kbjs-core
+    install: npm i --save @kudobuzz/kbjs-core
+    description: Core wrapper for kudobuzz client packages (axios-based HTTP client)
+    repository: https://github.com/kudobuzz/kbjs-clients
+    published: '2022-06-23'
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@kudobuzz/reviews-schema"
+    version: 2.4.2
+    url: https://www.npmjs.com/package/@kudobuzz/reviews-schema
+    install: npm i @kudobuzz/reviews-schema
+    description: Validator for external review transformations
+    published: '2026-05-21'
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@kudobuzz/express-error"
+    version: 2.0.3
+    url: https://www.npmjs.com/package/@kudobuzz/express-error
+    install: npm i @kudobuzz/express-error
+    description: Express error module used across Kudobuzz services
+    published: '2026-05-06'
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@kudobuzz/kbscripts"
+    version: 1.2.1
+    url: https://www.npmjs.com/package/@kudobuzz/kbscripts
+    install: npm i -D @kudobuzz/kbscripts
+    description: Configuration and scripts for Kudobuzz projects (internal tooling)
+    published: '2025-06-16'
+    official: true
+registries_checked:
+  - registry: npm
+    result: 5 first-party @kudobuzz packages found
+  - registry: pypi
+    result: none
+  - registry: rubygems
+    result: none
+  - registry: packagist
+    result: none
+  - registry: maven-central
+    result: none
+  - registry: nuget
+    result: none
+  - registry: pkg.go.dev
+    result: none
+  - registry: crates.io
+    result: none

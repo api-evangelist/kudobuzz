@@ -1,0 +1,70 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/kudobuzz/api-standards#versions
+notes: >-
+  Captured from Kudobuzz's public API design standard and from live probes of
+  the expected operational surfaces. Kudobuzz publishes a versioning and
+  version-support policy but does NOT operate a public status page and does
+  NOT publish a dated changelog — both recorded as verified absences below, and
+  neither gets an apis.yml pointer.
+versioning:
+  documented: true
+  style: uri-path
+  format: Integers prefixed with "v" (v1, v2, v3) — never decimals
+  rejected_formats: ["v-1.1", "v1.2", "1.3"]
+  current_version: v1
+  base_url: https://api.kudobuzz.com/v1
+  rule: >-
+    Never release a public API gateway without a version number. Put the
+    version number at the base of the URL.
+  source: https://github.com/kudobuzz/api-standards#versions
+
+deprecation:
+  policy_documented: true
+  support_window: >-
+    Kudobuzz maintains its APIs at least one version back. When vN+1 ships, vN
+    remains available, giving integrators a full version of runway to migrate.
+  statement: "Maintain APIs at least one version back."
+  source: https://github.com/kudobuzz/api-standards#versions
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    Kudobuzz does not document RFC 8594 Sunset or Deprecation response headers;
+    the policy is a stated support window, not a machine-readable signal.
+
+status_page:
+  published: false
+  probed:
+    - url: https://status.kudobuzz.com/
+      result: no response (connection timed out, no status host)
+  note: >-
+    No public status page or uptime history was found for Kudobuzz. The
+    organization mirrors the open-source LambStatus status-page project on
+    GitHub, but no Kudobuzz-operated instance is publicly reachable.
+
+changelog:
+  published: false
+  note: >-
+    No dated API changelog or release-notes page was found. The client library
+    @kudobuzz/kbclient carries npm version history (5 versions, latest 0.0.5,
+    2022-07-21) but that is package history, not an API changelog. No
+    changelog/ artifact was written.
+
+sla:
+  published: false
+  note: >-
+    No public uptime or support SLA was found. The Kudobuzz security policy
+    commits to backup and disaster-recovery plans for service continuity but
+    states no numeric availability target.
+  source: https://kudobuzz.com/security
+
+api_availability:
+  gated: true
+  detail: >-
+    The Developer API is not self-serve. Access is granted per account to
+    merchants on the Buffet plan and, free of charge, to app developers
+    building Kudobuzz integrations. Credentials are issued by the Kudobuzz team
+    on request.
+  request_url: https://kudobuzz.com/developer-api
+  last_updated_by_provider: July 2026

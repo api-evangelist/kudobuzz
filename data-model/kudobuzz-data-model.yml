@@ -1,0 +1,349 @@
+generated: '2026-07-19'
+method: derived
+source: https://docs.kudobuzz.com/core.md, https://docs.kudobuzz.com/apm.md
+notes: >-
+  Kudobuzz publishes no OpenAPI definition, so this entity graph is derived
+  from the TypeScript payload shapes printed verbatim in the published API
+  docs (core.md for the review payload, apm.md for the customer and order
+  payloads). Every field listed below appears in those documented payloads;
+  nothing is inferred beyond the relationships implied by the id-reference
+  fields. Field optionality follows the `?` markers in the published shapes.
+entities:
+  - name: Business
+    description: >-
+      The Kudobuzz merchant account. The tenant boundary for every other
+      entity; referenced by business_id throughout.
+    key: business_id
+    fields:
+      - name: business_id
+        type: string
+        required: true
+    source: https://docs.kudobuzz.com/apm.md
+
+  - name: Review
+    description: >-
+      A customer review collected by or imported into Kudobuzz, optionally
+      associated with a product and optionally carrying media.
+    created_by: client.core.reviews.createReview(reviewPayload)
+    fields:
+      - name: platform
+        type: ReviewPlatform
+        required: true
+        note: e.g. ReviewPlatform.KUDOBUZZ
+      - name: source
+        type: Sources
+        required: true
+      - name: created_at_platform
+        type: Date
+        required: true
+      - name: reviewer
+        type: Reviewer
+        required: true
+      - name: rating
+        type: "1 | 2 | 3 | 4 | 5"
+        required: true
+      - name: external_unique_id
+        type: string[]
+        required: false
+        note: The id(s) of the product(s) this review is associated to
+      - name: title
+        type: string
+        required: false
+      - name: message
+        type: string
+        required: true
+      - name: media
+        type: string[]
+        required: false
+      - name: external_channel_id
+        type: string
+        required: false
+    source: https://docs.kudobuzz.com/core.md
+
+  - name: Reviewer
+    description: The person who wrote a review. Embedded in the Review payload.
+    embedded_in: Review
+    fields:
+      - name: external_reviewer_id
+        type: string
+        required: true
+      - name: display_name
+        type: string
+        required: true
+      - name: channel
+        type: Channels
+        required: true
+      - name: email
+        type: string
+        required: false
+      - name: image.profile_url
+        type: string
+        required: false
+    source: https://docs.kudobuzz.com/core.md
+
+  - name: Customer
+    description: >-
+      A merchant's customer pushed into Kudobuzz for After Purchase Mail (APM)
+      segmentation and campaigns.
+    created_by: client.apm.customers.createOrUpdate(customer)
+    upsert_key: id
+    fields:
+      - name: business_id
+        type: string
+        required: true
+      - name: email
+        type: string
+        required: false
+      - name: phone
+        type: string
+        required: false
+      - name: order_id
+        type: string
+        required: false
+        note: Order id if the customer ordered via a third-party platform
+      - name: total_spent
+        type: string
+        required: false
+      - name: first_name
+        type: string
+        required: false
+      - name: last_name
+        type: string
+        required: true
+      - name: orders_count
+        type: number
+        required: false
+      - name: external_customer_id
+        type: string
+        required: false
+      - name: created_at_platform
+        type: Date
+        required: false
+      - name: updated_at_platform
+        type: Date
+        required: false
+      - name: accepts_marketing
+        type: boolean
+        required: false
+      - name: note
+        type: boolean
+        required: false
+      - name: state
+        type: string
+        required: false
+      - name: verified_email
+        type: boolean
+        required: false
+      - name: tags
+        type: string[]
+        required: false
+      - name: id
+        type: string
+        required: false
+        note: Include to update an existing customer rather than create
+    envelope:
+      apmId: string
+      body: the customer object above
+    source: https://docs.kudobuzz.com/apm.md
+
+  - name: Order
+    description: >-
+      A commerce order synced into Kudobuzz, used to time and target
+      post-purchase review requests.
+    created_by: client.apm.orders.createOrUpdate(order)
+    read_by:
+      - client.apm.orders.fetchOrders(query)
+      - client.apm.orders.getOrderById(id)
+    fields:
+      - name: business_id
+        type: string
+        required: true
+      - name: order_id
+        type: "string | number"
+        required: true
+      - name: order_number
+        type: number
+        required: true
+      - name: number
+        type: number
+        required: true
+      - name: name
+        type: string
+        required: true
+      - name: platform
+        type: Platforms
+        required: true
+      - name: source
+        type: string
+        required: true
+      - name: currency
+        type: number
+        required: true
+      - name: subtotal_price
+        type: string
+        required: true
+      - name: total_line_items_price
+        type: number
+        required: true
+      - name: total_price
+        type: number
+        required: false
+      - name: email
+        type: string
+        required: false
+      - name: phone
+        type: string
+        required: false
+      - name: buyer_accepts_marketing
+        type: boolean
+        required: false
+      - name: cart_token
+        type: string
+        required: false
+      - name: financial_status
+        type: string
+        required: false
+      - name: fulfillment_status
+        type: string
+        required: false
+      - name: processed_at
+        type: Date
+        required: false
+      - name: closed_at
+        type: Date
+        required: false
+      - name: cancelled_at
+        type: Date
+        required: false
+      - name: fulfilled_at
+        type: Date
+        required: false
+      - name: created_at_platform
+        type: Date
+        required: false
+      - name: updated_at_platform
+        type: Date
+        required: false
+      - name: customer
+        type: embedded customer summary
+        required: false
+      - name: line_items
+        type: LineItem[]
+        required: true
+    source: https://docs.kudobuzz.com/apm.md
+
+  - name: LineItem
+    description: A product line on an order. Embedded in the Order payload.
+    embedded_in: Order
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: name
+        type: string
+        required: true
+      - name: price
+        type: number
+        required: true
+      - name: quantity
+        type: number
+        required: true
+      - name: sku
+        type: string
+        required: false
+      - name: product_id
+        type: "string | number"
+        required: false
+      - name: variant_id
+        type: string
+        required: false
+      - name: variant_title
+        type: string
+        required: false
+      - name: vendor
+        type: string
+        required: false
+      - name: image
+        type: string
+        required: false
+      - name: url
+        type: string
+        required: false
+      - name: grams
+        type: number
+        required: false
+      - name: taxable
+        type: boolean
+        required: false
+      - name: total_discount
+        type: number
+        required: false
+      - name: requires_shipping
+        type: boolean
+        required: false
+      - name: product_exists
+        type: boolean
+        required: false
+      - name: fulfillment_status
+        type: string
+        required: false
+      - name: fulfillment_service
+        type: string
+        required: false
+      - name: variant_inventory_management
+        type: string
+        required: false
+    source: https://docs.kudobuzz.com/apm.md
+
+relationships:
+  - from: Customer
+    to: Business
+    type: belongs_to
+    via: business_id
+  - from: Order
+    to: Business
+    type: belongs_to
+    via: business_id
+  - from: Order
+    to: Customer
+    type: has_one
+    via: customer (embedded summary) / email
+  - from: Order
+    to: LineItem
+    type: has_many
+    via: line_items[]
+  - from: Review
+    to: Reviewer
+    type: has_one
+    via: reviewer
+  - from: Review
+    to: Product
+    type: belongs_to
+    via: external_unique_id[]
+    note: >-
+      Product is not itself a Kudobuzz-managed entity; it is referenced by the
+      merchant's own external product id.
+  - from: Customer
+    to: Order
+    type: has_many
+    via: order_id / orders_count
+    note: Soft link via the merchant's external platform order id.
+
+external_id_convention:
+  detail: >-
+    Kudobuzz consistently mirrors the merchant's source-of-truth commerce
+    platform (Shopify, Wix, BigCommerce, Shoplazza, Webflow) rather than owning
+    the identifiers. Every entity carries an external_*_id or platform-scoped id
+    alongside Kudobuzz's own id, and the *_at_platform date fields preserve the
+    originating platform's timestamps.
+  fields:
+    - external_customer_id
+    - external_reviewer_id
+    - external_unique_id
+    - external_channel_id
+    - order_id
+    - created_at_platform
+    - updated_at_platform
+  no_id_prefixes: >-
+    Kudobuzz does not publish typed id prefixes (unlike e.g. Stripe's cus_/ord_);
+    ids are opaque strings.
