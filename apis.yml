@@ -1,25 +1,184 @@
 aid: kudobuzz
 name: Kudobuzz
-description: Kudobuzz is a company surfaced as a portfolio company of 500-global and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Kudobuzz is a reviews, user-generated content (UGC) and conversion-rate-optimization
+  platform for ecommerce merchants. It collects, moderates and displays product and
+  social reviews, imports reviews from Facebook, Google, Yelp, Amazon, Etsy and
+  AliExpress, syncs shoppable UGC video from social channels, and runs After Purchase
+  Mail campaigns that time review requests to a buyer's order. Merchants install it as
+  an app on Shopify, Wix, BigCommerce, Shoplazza and Webflow and embed site, product,
+  full-page and checkout widgets in their storefronts. The gated Developer API
+  (api.kudobuzz.com/v1) exposes review creation plus customer and order sync for the
+  APM product, is available to merchants on the Buffet plan and free to app developers
+  building integrations, and is served by a first-party JavaScript client wrapper.
+  Kudobuzz publishes its REST design standard, covering URLs, status codes, the error
+  envelope, versioning, cursor pagination, rate-limit headers and idempotency, as a
+  public repository.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kudobuzz.com/assets/kudobuzz-logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/kudobuzz/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - 500-global
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-from-public-developer-surface
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- Reviews
+- User Generated Content
+- Ecommerce
+- Social Proof
+- Conversion Rate Optimization
+- Marketing
+- Shopify
+- Customer Feedback
+- SaaS
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: Kudobuzz Developer API
+  description: >-
+    The Kudobuzz Developer API lets merchants and integration developers create
+    customer reviews and sync customers and orders into the After Purchase Mail (APM)
+    product for segmentation and post-purchase review-request campaigns. Access is
+    granted per account rather than self-serve, authenticated with a server-side
+    account token plus a browser-side client id. Kudobuzz publishes no OpenAPI
+    definition; the reference documents the official JavaScript client wrapper.
+  humanURL: https://kudobuzz.com/developer-api
+  baseURL: https://api.kudobuzz.com/v1
+  image: https://kudobuzz.com/assets/kudobuzz-logo.svg
+  tags:
+  - Reviews
+  - User Generated Content
+  - Ecommerce
+  - Orders
+  - Customers
+  properties:
+  - type: Documentation
+    url: https://docs.kudobuzz.com/
+  - type: APIReference
+    url: https://docs.kudobuzz.com/#/core
+  - type: GettingStarted
+    url: https://docs.kudobuzz.com/#/quickstart
+  - type: Authentication
+    url: authentication/kudobuzz-authentication.yml
+  - type: Conventions
+    url: conventions/kudobuzz-conventions.yml
+  - type: Idempotency
+    url: conventions/kudobuzz-conventions.yml
+  - type: ErrorCatalog
+    url: errors/kudobuzz-error-codes.yml
+  - type: RateLimits
+    url: rate-limits/kudobuzz-rate-limits.yml
+  - type: DataModel
+    url: data-model/kudobuzz-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/kudobuzz-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/kudobuzz-lifecycle.yml
+  - type: SourceCode
+    url: https://github.com/kudobuzz/kbjs-clients
 common:
 - type: Website
   url: https://kudobuzz.com
+- type: DeveloperPortal
+  url: https://kudobuzz.com/developer-api
+- type: Documentation
+  url: https://docs.kudobuzz.com/
+- type: APIReference
+  url: https://docs.kudobuzz.com/#/core
+- type: GettingStarted
+  url: https://docs.kudobuzz.com/#/quickstart
+- type: Authentication
+  url: authentication/kudobuzz-authentication.yml
+- type: Conventions
+  url: conventions/kudobuzz-conventions.yml
+- type: Idempotency
+  url: conventions/kudobuzz-conventions.yml
+- type: ErrorCatalog
+  url: errors/kudobuzz-error-codes.yml
+- type: RateLimits
+  url: rate-limits/kudobuzz-rate-limits.yml
+- type: DataModel
+  url: data-model/kudobuzz-data-model.yml
+- type: Lifecycle
+  url: lifecycle/kudobuzz-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/kudobuzz-lifecycle.yml
+- type: Packages
+  url: packages/kudobuzz-packages.yml
+- type: SDKs
+  url: packages/kudobuzz-packages.yml
+- type: WellKnown
+  url: well-known/kudobuzz-well-known.yml
+- type: MCPServer
+  url: mcp/kudobuzz-mcp.yml
+- type: LLMsTxt
+  url: llms/kudobuzz-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Conformance
+  url: conformance/kudobuzz-conformance.yml
+- type: Compliance
+  url: https://kudobuzz.com/gdpr
+- type: TrustCenter
+  url: security/kudobuzz-trust-center.yml
+- type: DomainSecurity
+  url: security/kudobuzz-domain-security.yml
+- type: Components
+  url: components/kudobuzz-components.yml
+- type: GitHubOrganization
+  url: https://github.com/kudobuzz
+- type: Support
+  url: https://support.kudobuzz.com/en/
+- type: Blog
+  url: https://blog.kudobuzz.com/
+- type: BlogRSS
+  url: https://blog.kudobuzz.com/rss/
+- type: Pricing
+  url: https://kudobuzz.com/pricing
+- type: SignUp
+  url: https://dashboard.kudobuzz.com/signup
+- type: Login
+  url: https://dashboard.kudobuzz.com/login
+- type: TermsOfService
+  url: https://kudobuzz.com/terms
+- type: PrivacyPolicy
+  url: https://kudobuzz.com/privacy
+- type: SecurityPolicy
+  url: https://kudobuzz.com/security
+- type: DesignGuide
+  url: https://github.com/kudobuzz/api-standards
+- type: Twitter
+  url: https://x.com/kudobuzz
+- type: LinkedIn
+  url: https://www.linkedin.com/company/kudobuzz
+- type: YouTube
+  url: https://www.youtube.com/channel/UC3RyY_cyWlEBgIjsDE0-8fg
+- type: Facebook
+  url: https://www.facebook.com/kudobuzz/
+- type: Instagram
+  url: https://www.instagram.com/kudobuzz/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
