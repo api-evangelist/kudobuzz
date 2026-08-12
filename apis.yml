@@ -97,6 +97,8 @@ apis:
   - type: SourceCode
     url: https://github.com/kudobuzz/kbjs-clients
 common:
+- type: IssueTracker
+  url: https://github.com/kudobuzz/kbjs-clients/issues
 - type: Website
   url: https://kudobuzz.com
 - type: DeveloperPortal
