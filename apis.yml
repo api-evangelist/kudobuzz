@@ -36,7 +36,7 @@ x-tier: profiled
 x-tier-reason: enriched-from-public-developer-surface
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-08-13'
 tags:
 - Company
 - Reviews
@@ -96,6 +96,8 @@ apis:
     url: lifecycle/kudobuzz-lifecycle.yml
   - type: SourceCode
     url: https://github.com/kudobuzz/kbjs-clients
+  - type: Plans
+    url: plans/kudobuzz-plans-pricing.yml
 common:
 - type: IssueTracker
   url: https://github.com/kudobuzz/kbjs-clients/issues
@@ -145,6 +147,10 @@ common:
   url: security/kudobuzz-trust-center.yml
 - type: DomainSecurity
   url: security/kudobuzz-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/kudobuzz-vulnerability-disclosure.yml
+- type: Plans
+  url: plans/kudobuzz-plans-pricing.yml
 - type: Components
   url: components/kudobuzz-components.yml
 - type: GitHubOrganization
@@ -165,7 +171,7 @@ common:
   url: https://kudobuzz.com/terms
 - type: PrivacyPolicy
   url: https://kudobuzz.com/privacy
-- type: SecurityPolicy
+- type: Security
   url: https://kudobuzz.com/security
 - type: DesignGuide
   url: https://github.com/kudobuzz/api-standards
@@ -180,7 +186,12 @@ common:
 - type: Instagram
   url: https://www.instagram.com/kudobuzz/
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 2
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  note: >-
+    Round 2. Re-ran full contract discovery (no OpenAPI/GraphQL/MCP/agent card
+    on any host). Added plans/ from the live pricing page and
+    security/vulnerability-disclosure from the security policy page; refreshed
+    stale plan names in rate-limits/ and the status-page probe in lifecycle/.
