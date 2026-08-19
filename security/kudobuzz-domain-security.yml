@@ -1,8 +1,13 @@
-generated: '2026-07-19'
+generated: '2026-08-13'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
 - host: kudobuzz.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  1 22:29:30 2026 GMT
+  hsts: false
+- host: api.kudobuzz.com
   https: true
   tls_version: TLSv1.3
   cert_expires: Oct  1 22:29:30 2026 GMT

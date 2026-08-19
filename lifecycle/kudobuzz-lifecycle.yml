@@ -37,11 +37,20 @@ status_page:
   published: false
   probed:
     - url: https://status.kudobuzz.com/
+      date: '2026-07-19'
       result: no response (connection timed out, no status host)
+    - url: https://status.kudobuzz.com/
+      date: '2026-08-13'
+      status: 308
+      result: >-
+        Cloudflare answers with a permanent redirect to the same URL — an
+        infinite redirect loop, so no document is ever served. The hostname now
+        resolves, but there is still no status page behind it.
   note: >-
     No public status page or uptime history was found for Kudobuzz. The
     organization mirrors the open-source LambStatus status-page project on
-    GitHub, but no Kudobuzz-operated instance is publicly reachable.
+    GitHub, but no Kudobuzz-operated instance is publicly reachable. No
+    StatusPage pointer is emitted.
 
 changelog:
   published: false
@@ -58,6 +67,20 @@ sla:
     commits to backup and disaster-recovery plans for service continuity but
     states no numeric availability target.
   source: https://kudobuzz.com/security
+
+commercial_lifecycle:
+  note: >-
+    Not an API lifecycle event, but the only dated end-of-life Kudobuzz has
+    published, and it changes who can reach the API. Recorded here for
+    completeness; the deprecation policy above still refers only to API
+    versions.
+  events:
+    - subject: Coffee plan (perpetual free tier)
+      announced: '2026-06-30'
+      end_of_access: '2026-08-31'
+      replacement: 14-day full-access free trial
+      source: https://blog.kudobuzz.com/a-new-chapter-for-kudobuzz-saying-goodbye-to-the-coffee-plan/
+      see: plans/kudobuzz-plans-pricing.yml
 
 api_availability:
   gated: true

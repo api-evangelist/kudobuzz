@@ -1,4 +1,4 @@
-generated: '2026-07-19'
+generated: '2026-08-13'
 method: searched
 source: https://github.com/kudobuzz/api-standards#rate-limiting
 notes: >-
@@ -32,17 +32,29 @@ limits:
 plan_related_quotas:
   note: >-
     Kudobuzz publishes product-level volume caps on its pricing page that
-    bound API-driven usage even though they are not HTTP rate limits.
+    bound API-driven usage even though they are not HTTP rate limits. Re-read
+    2026-08-13: the plan names captured on 2026-07-19 ("Dinner") are gone from
+    the pricing page, which now prices a "Growth" tier on the Product & Social
+    Reviews line, and the published-reviews cap moved from 1000 to 2000. The
+    full tier breakdown lives in plans/kudobuzz-plans-pricing.yml.
   source: https://kudobuzz.com/pricing
+  see: plans/kudobuzz-plans-pricing.yml
+  checked: '2026-08-13'
   examples:
-    - plan: Dinner
+    - plan: Growth (Product & Social Reviews)
       cap: 3000 monthly review requests
-    - plan: Dinner
-      cap: 1000 published reviews
-    - plan: Starter (UGC)
+    - plan: Growth (Product & Social Reviews)
+      cap: 2000 published reviews
+    - plan: Growth (Product & Social Reviews)
+      cap: 3000 after-purchase orders per month
+    - plan: Starter (UGC & Shoppable Videos)
       cap: Up to 50 synced videos, automatic syncing every 24 hours
-    - plan: Growth (UGC)
+    - plan: Growth (UGC & Shoppable Videos)
       cap: Up to 150 synced videos, automatic syncing every 3 hours
+  superseded_names:
+    - name: Dinner
+      captured: '2026-07-19'
+      note: no longer present on the pricing page as of 2026-08-13
 client_guidance:
   - Read X-Rate-Limit-Remaining on every response and throttle before exhaustion.
   - On 429, back off until X-Rate-Limit-Reset rather than retrying immediately.

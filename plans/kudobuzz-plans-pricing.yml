@@ -1,0 +1,186 @@
+generated: '2026-08-13'
+method: searched
+source: https://kudobuzz.com/pricing
+docs: https://kudobuzz.com/pricing
+notes: >-
+  Captured from the public Kudobuzz pricing page on 2026-08-13. Kudobuzz sells
+  two separately-priced product lines from one pricing page, selected by a tab:
+  "Product & Social Reviews" and "UGC & Shoppable Videos". Card prices and the
+  monthly/yearly figures below were read from the server-rendered pricing cards
+  (`data-monthly` / `data-yearly` attributes); the feature matrix was read from
+  the comparison modal's `data-modal-content` payload on the same page. Nothing
+  here is inferred from marketing copy.
+
+  API ACCESS IS A PAID FEATURE, AND THE TWO KUDOBUZZ PAGES DISAGREE ON WHICH
+  PLAN CARRIES IT. The pricing page lists "API Access" as a bullet on the
+  Reviews "Growth" tier and the comparison matrix marks the "API" row true only
+  in the paid column. The Developer API page (https://kudobuzz.com/developer-api,
+  which itself carries "Updated August 2026") instead says API access is
+  included on the "Buffet" plan — a plan name that appears nowhere on the
+  current pricing page. Recorded as a published inconsistency, not resolved:
+  a developer reading either page cannot tell which tier to buy.
+plan_count: 3
+currency: USD
+billing_periods:
+  - monthly
+  - yearly
+free_tier:
+  self_serve_free_plan: false
+  trial:
+    length_days: 14
+    scope: full access to the entire platform, no feature locks
+    credit_card_required: false
+    source: https://kudobuzz.com/pricing
+  note: >-
+    Kudobuzz retired its perpetual free "Coffee" plan and replaced it with the
+    14-day full-access trial. Announced 2026-06-30; existing Coffee-plan
+    merchants keep access until 2026-08-31, after which they must choose a paid
+    plan. See plan_retirements below.
+product_lines:
+  - name: Product & Social Reviews
+    plans:
+      - name: Growth
+        price_monthly: 19.99
+        price_yearly: 180
+        currency: USD
+        subtitle: For enterprise brands seeking full control
+        cta: Start 14 Days Free Trial
+        signup_url: https://dashboard.kudobuzz.com/signup
+        api_access: true
+        included:
+          - Import Facebook, AliExpress, Yelp, Amazon, Etsy and Google Reviews
+          - 3000 Monthly Review Requests
+          - 2000 Published Reviews
+          - Video Reviews
+          - Google Product Ratings
+          - Domain Branding
+          - API Access
+  - name: UGC & Shoppable Videos
+    plans:
+      - name: Starter
+        price_monthly: 9.99
+        price_yearly: 99
+        currency: USD
+        subtitle: 'Best for: Merchants ready to scale UGC and display it beautifully.'
+        cta: Start 14 Days Free Trial
+        signup_url: https://apps.shopify.com/kudobuzz-tiktok-gallery
+        api_access: false
+        included:
+          - Up to 50 synced videos
+          - Automatic video syncing (every 24 hours)
+          - Unlimited widgets
+          - Advanced moderation tools
+          - Remove Kudobuzz branding
+          - Product tagging
+      - name: Growth
+        price_monthly: 19.99
+        price_yearly: 199
+        currency: USD
+        subtitle: 'Best for: Merchants seeking deep UGC customization.'
+        cta: Start 14 Days Free Trial
+        signup_url: https://apps.shopify.com/kudobuzz-tiktok-gallery
+        api_access: false
+        included:
+          - Up to 150 synced videos
+          - Faster automatic syncing (every 3 hours)
+          - Unlimited widgets
+          - Priority video processing
+          - Advanced performance analytics
+          - Priority support
+quotas_that_bound_api_usage:
+  note: >-
+    Product-level volume caps published on the Reviews Growth tier. They are not
+    HTTP rate limits, but they bound what API-driven review collection and APM
+    order sync can do. See rate-limits/kudobuzz-rate-limits.yml for the
+    signalling contract (X-Rate-Limit-* + 429); numeric HTTP quotas are not
+    published anywhere.
+  caps:
+    - plan: Growth (Product & Social Reviews)
+      metric: monthly review requests
+      cap: 3000
+    - plan: Growth (Product & Social Reviews)
+      metric: published reviews
+      cap: 2000
+    - plan: Growth (Product & Social Reviews)
+      metric: after-purchase orders per month
+      cap: 3000
+    - plan: Growth (Product & Social Reviews)
+      metric: Q&A
+      cap: 2000
+    - plan: Growth (Product & Social Reviews)
+      metric: team members
+      cap: 10
+    - plan: Starter (UGC & Shoppable Videos)
+      metric: synced videos
+      cap: 50
+      sync_interval: every 24 hours
+    - plan: Growth (UGC & Shoppable Videos)
+      metric: synced videos
+      cap: 150
+      sync_interval: every 3 hours
+comparison_matrix:
+  captured: true
+  source: https://kudobuzz.com/pricing
+  extraction: data-modal-content payload on the pricing component
+  columns_published: false
+  column_note: >-
+    The comparison modal ships two values per feature row but renders its
+    column headers as em-dashes with a stale "Students Package" sub-label, and
+    the tab shows only one priced card. Column 1 matches the Growth card
+    exactly (2000 Published Reviews, 3000 orders/month, API true), so column 0
+    is the lower/retiring tier. Kudobuzz does not name either column on the
+    page, so neither column is given a plan name here.
+  api_row:
+    feature: API
+    lower_column: false
+    growth_column: true
+  representative_rows:
+    - feature: Published Reviews
+      values: ['50 Reviews', '2000 Reviews']
+    - feature: After Purchase Reviews
+      values: ['10 Orders / Month', '3000 Orders / Month']
+    - feature: 'Q&A'
+      values: [false, '2000 Q&A']
+    - feature: Team Collaboration
+      values: [false, 'Up to 10 Team Members']
+    - feature: Kudobuzz Insight
+      values: [false, 'Advanced']
+    - feature: API
+      values: [false, true]
+plan_retirements:
+  - plan: Coffee
+    type: perpetual free plan
+    announced: '2026-06-30'
+    end_of_access: '2026-08-31'
+    replacement: 14-day full-access free trial
+    source: https://blog.kudobuzz.com/a-new-chapter-for-kudobuzz-saying-goodbye-to-the-coffee-plan/
+    quote: >-
+      "Coffee plan users have an extended window to keep using Kudobuzz up until
+      August 31, 2026 ... After August 31, 2026, you will be asked to choose a
+      plan to continue using Kudobuzz."
+legacy_plan_names_still_referenced:
+  - name: Buffet
+    referenced_on: https://kudobuzz.com/developer-api
+    status: not present on the current pricing page
+    impact: >-
+      The Developer API eligibility statement names a plan a prospective
+      integrator cannot buy or find priced.
+  - name: Dinner
+    referenced_on: prior API Evangelist capture (2026-07-19)
+    status: superseded on the pricing page by Growth
+enterprise:
+  contact_only_tier: false
+  note: >-
+    No "contact sales" / custom enterprise tier is published. The Reviews Growth
+    tier is described as "For enterprise brands seeking full control" and lists
+    Dedicated Account Management, Dedicated Security & Compliance and a
+    Dedicated Customer Success Manager in the comparison matrix, so enterprise
+    services are bundled into the published $19.99 tier rather than quoted.
+evidence:
+  - url: https://kudobuzz.com/pricing
+    status: 200
+  - url: https://kudobuzz.com/developer-api
+    status: 200
+  - url: https://blog.kudobuzz.com/a-new-chapter-for-kudobuzz-saying-goodbye-to-the-coffee-plan/
+    status: 200
+checked: '2026-08-13'
