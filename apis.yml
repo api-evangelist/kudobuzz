@@ -41,6 +41,17 @@ tags:
 - Company
 - Reviews
 - User Generated Content
+- E-Commerce
+- Social Proof
+- Conversion Rate Optimization
+- Marketing
+- Shopify
+- Customer Feedback
+- Software-as-a-Service
+tags_raw:
+- Company
+- Reviews
+- User Generated Content
 - Ecommerce
 - Social Proof
 - Conversion Rate Optimization
@@ -66,6 +77,12 @@ apis:
   baseURL: https://api.kudobuzz.com/v1
   image: https://kudobuzz.com/assets/kudobuzz-logo.svg
   tags:
+  - Reviews
+  - User Generated Content
+  - E-Commerce
+  - Order
+  - Customers
+  tags_raw:
   - Reviews
   - User Generated Content
   - Ecommerce
