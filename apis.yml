@@ -14,6 +14,18 @@ description: >-
   Kudobuzz publishes its REST design standard, covering URLs, status codes, the error
   envelope, versioning, cursor pagination, rate-limit headers and idempotency, as a
   public repository.
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
