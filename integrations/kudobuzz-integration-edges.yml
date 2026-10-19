@@ -1,16 +1,89 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/kudobuzz/integrations
 - https://n8n.io/integrations/kudobuzz/
 - https://composio.dev/toolkits/kudobuzz
 - https://monid.ai/tools/kudobuzz
 checked:
+- https://api.nuget.org/v3
 - https://composio.dev/toolkits/kudobuzz
+- https://crates.io/api/v1
 - https://monid.ai/tools/kudobuzz
 - https://n8n.io/integrations/kudobuzz/
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://zapier.com/apps/kudobuzz/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@kudobuzz/express-error
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@kudobuzz/express-error'
+      version: 2.0.3
+      released: '2026-05-06'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@kudobuzz/express-error
+      repo_leg: github-org:kudobuzz
+      publisher_leg: email:kudobuzz.com
+      matched_by: domain
+    - name: '@kudobuzz/kbclient'
+      version: 0.0.5
+      released: '2022-07-21'
+      released_field: modified
+      lapsed: true
+      page: https://www.npmjs.com/package/@kudobuzz/kbclient
+      repo_leg: github-org:kudobuzz
+      publisher_leg: email:kudobuzz.com
+      matched_by: domain
+    - name: '@kudobuzz/kbjs-core'
+      version: 0.0.5
+      released: '2022-06-23'
+      released_field: modified
+      lapsed: true
+      page: https://www.npmjs.com/package/@kudobuzz/kbjs-core
+      repo_leg: github-org:kudobuzz
+      publisher_leg: email:kudobuzz.com
+      matched_by: domain
+    - name: '@kudobuzz/kbscripts'
+      version: 1.2.1
+      released: '2025-06-16'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@kudobuzz/kbscripts
+      repo_leg: github-org:kudobuzz
+      publisher_leg: email:kudobuzz.com
+      matched_by: domain
+    - name: '@kudobuzz/reviews-schema'
+      version: 2.4.2
+      released: '2026-05-21'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@kudobuzz/reviews-schema
+      repo_leg: github-org:kudobuzz
+      publisher_leg: email:kudobuzz.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 templates: []
