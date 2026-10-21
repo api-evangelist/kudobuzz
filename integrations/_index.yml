@@ -70,3 +70,16 @@
     detected: '2026-10-18'
   status: not-a-workflow
   arazzo: null
+- slug: kudobuzz-bigcommerce-own
+  label: BigCommerce (own)
+  partner: bigcommerce
+  partner_name: BigCommerce (own)
+  category: Merchandising, Ratings & Reviews
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.bigcommerce.com/apps/kudobuzz-social-photo-reviews/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
