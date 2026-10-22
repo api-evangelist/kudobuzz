@@ -23,6 +23,7 @@ checked:
 - https://www.antler.co/portfolio
 - https://www.techstars.com/portfolio
 - https://www.ycombinator.com/companies
+- wix/integrations/wix-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
@@ -92,23 +93,6 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
-- partner_name: BigCommerce (own)
-  partner: bigcommerce
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://www.bigcommerce.com/apps/kudobuzz-social-photo-reviews/
-  mirror_of: bigcommerce/integrations/bigcommerce-integration-edges.yml
-  apps:
-  - Kudobuzz Social & Photo Reviews
-  listing_count: 1
-  detected: '2026-10-20'
-  detected_by: mirror-platform-listings.py
-  category: Merchandising, Ratings & Reviews
 - partner_name: 500 Global
   partner: 500-global
   partner_match: register
@@ -137,4 +121,41 @@ edges:
     year: '2015'
   detected_by: sweep-accelerator-portfolios.py
   first_seen: '2026-10-21'
+- partner_name: BigCommerce (own)
+  partner: bigcommerce
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.bigcommerce.com/apps/kudobuzz-social-photo-reviews/
+  mirror_of: bigcommerce/integrations/bigcommerce-integration-edges.yml
+  apps:
+  - Kudobuzz Social & Photo Reviews
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: Merchandising, Ratings & Reviews
+- partner_name: Wix (own)
+  partner: wix
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.wix.com/app-market/developer/kudobuzz
+  mirror_of: wix/integrations/wix-integration-edges.yml
+  apps:
+  - Kudobuzz Product Reviews
+  - Kudobuzz Shoppable UGC
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Reviews & Testimonials
+  publisher_verified:
+  - Verified by Wix
 templates: []
